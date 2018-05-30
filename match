@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+def match
+  files = Dir.glob("*")
+
+  if ARGV.length == 0 
+    puts "usage: match <keyword>"
+    return
+  end
+
+  files.each { |x| 
+    if File.directory?(x) 
+        puts "#{x}_ found directory"
+    	puts "***"
+	next
+    end
+    
+    found = false
+
+    File.open(x).each_line.with_index do |line, index|
+        if line.include? ARGV[0]
+           puts "#{x}_ #{index+1}  #{line}" 
+           found = true
+        end
+    end
+    
+    puts "***" if found  
+   }
+end
+
+match
+
